@@ -10,7 +10,23 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
   },
+  {
+    path: 'orders',
+    loadChildren: () => import('./pedidos/orders/orders.module').then( m => m.OrdersPageModule)
+  },
+  {
+    path: 'order-detail',
+    loadChildren: () => import('./pedidos/order-detail/order-detail.module').then( m => m.OrderDetailPageModule)
+  },
+  {
+    path: 'order-send',
+    loadChildren: () => import('./pedidos/order-send/order-send.module').then( m => m.OrderSendPageModule)
+  },
+
 ];
 
 @NgModule({

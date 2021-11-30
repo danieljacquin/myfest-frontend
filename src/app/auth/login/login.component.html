@@ -1,0 +1,18 @@
+<div class="lateral">
+    <div class="form-login">
+        <ion-title class="titulos">LOGIN</ion-title>
+        <div class="form-int">
+            <ion-item color="btncolor">
+                <ion-label>Usuario</ion-label>
+                <ion-input [(ngModel)]="usuario"></ion-input>
+            </ion-item>
+            <ion-item color="btncolor">
+                <ion-label>Contraseña</ion-label>
+                <ion-input [(ngModel)]="contrasena" type="password"></ion-input>
+            </ion-item>
+        </div>
+    </div>
+    <div class="div-final">
+        <ion-button class="btnColor" shape="round" color="btnColor" (click)="login()">Login</ion-button>
+    </div>
+</div>
