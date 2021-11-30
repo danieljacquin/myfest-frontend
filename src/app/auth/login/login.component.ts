@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
         this.config.get('token').then((val)=>{
           console.log(val);
           if(val){
-            localStorage.setItem('user-token-myfest', JSON.stringify(val));
             this.router.navigate(['/establishments']);
           }
         }); 

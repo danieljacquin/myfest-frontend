@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { ConfigService }  from '../service/config.service';
 
 interface Products {
   idProducto: number;
@@ -36,24 +37,25 @@ export class EstablishmentProductsPage implements OnInit {
   ];*/
   products: Products[] = [];
   buyProducts: any;
-
+  token: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private config: ConfigService
   ) { }
 
   ngOnInit() {
+    this.getToken();
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     console.log(this.id);
-    this.getProducts();
   }
 
   getProducts(){
     const headers = new HttpHeaders({
       'Content-Type':'application/json',
-      'Authorization':'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9teWZlc3QtYmFjay5oZXJva3VhcHAuY29tXC9hdXRoXC9sb2dpbiIsImlhdCI6MTYzODI0NjM2NSwiZXhwIjoxNjM4MjQ5OTY1LCJuYmYiOjE2MzgyNDYzNjUsImp0aSI6ImNUZEliT0hUYlBVeUx1OFIiLCJzdWIiOjEsInBydiI6ImE3ZTllNzcxZjViZWJkZGQyNTUyMGFmZTI1MTI5N2Q3NjlmMmU4YTQifQ.ZCQKUnmy36ReGaq2BgLdhpAiznawmw77YOuehfLTGsU' 
+      'Authorization':'Bearer '+this.token 
     });
     this.http.get('https://myfest-back.herokuapp.com/detalleInventario/'+this.id,{headers: headers}).subscribe((data: Products[]) => {
       this.products = data;
@@ -75,6 +77,12 @@ export class EstablishmentProductsPage implements OnInit {
 
     this.router.navigate(['/show-details'],extras);
 
+  }
+
+  async getToken(){
+    this.token = await this.config.get('token');
+    console.log(this.token);
+    this.getProducts();
   }
 
 }
