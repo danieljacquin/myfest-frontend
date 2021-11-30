@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { ConfigService }  from '../service/config.service';
 
 interface User {
   id: number;
@@ -53,17 +54,18 @@ export class EstablishmentsPage implements OnInit {
   }
   ];*/
   establishments: User[] = [];
+  token: any;
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient, private config: ConfigService) { }
 
   ngOnInit() {
-    this.getEstablishments();
+    this.getToken();
   }
 
   getEstablishments(){
     const headers = new HttpHeaders({
       'Content-Type':'application/json',
-      'Authorization':'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9teWZlc3QtYmFjay5oZXJva3VhcHAuY29tXC9hdXRoXC9sb2dpbiIsImlhdCI6MTYzODI0NjM2NSwiZXhwIjoxNjM4MjQ5OTY1LCJuYmYiOjE2MzgyNDYzNjUsImp0aSI6ImNUZEliT0hUYlBVeUx1OFIiLCJzdWIiOjEsInBydiI6ImE3ZTllNzcxZjViZWJkZGQyNTUyMGFmZTI1MTI5N2Q3NjlmMmU4YTQifQ.ZCQKUnmy36ReGaq2BgLdhpAiznawmw77YOuehfLTGsU' 
+      'Authorization':'Bearer '+this.token 
     });
 
     this.http.get('https://myfest-back.herokuapp.com/empresas',{headers: headers}).subscribe((data: User[]) => {
@@ -74,6 +76,12 @@ export class EstablishmentsPage implements OnInit {
   goProducts(id: number){
     console.log(id);
     this.router.navigate(['/establishment-products']);
+  }
+
+ async getToken(){
+    this.token = await this.config.get('token');
+    console.log(this.token);
+    this.getEstablishments();
   }
 
 }
