@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Establecimientos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let establishment of establishments">
+      <ion-thumbnail>
+        <img src="assets/establecimiento-comercio.png" alt="Hello">
+      </ion-thumbnail>
+      <ion-label class="label" [routerLink]="['/establishment-products',establishment.id]">
+        <h2 class="label-h2">{{establishment.nombre}}</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

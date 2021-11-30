@@ -10,7 +10,8 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-  },  {
+  },
+  {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
   },
@@ -23,10 +24,21 @@ const routes: Routes = [
     loadChildren: () => import('./pedidos/order-detail/order-detail.module').then( m => m.OrderDetailPageModule)
   },
   {
+    path: 'establishments',
+    loadChildren: () => import('./establishments/establishments.module').then( m => m.EstablishmentsPageModule)
+  },
+  {
+    path: 'establishment-products/:id',
+    loadChildren: () => import('./establishment-products/establishment-products.module').then( m => m.EstablishmentProductsPageModule)
+  },
+  {
+    path: 'show-details',
+    loadChildren: () => import('./show-details/show-details.module').then( m => m.ShowDetailsPageModule)
+  },
+  {
     path: 'order-send',
     loadChildren: () => import('./pedidos/order-send/order-send.module').then( m => m.OrderSendPageModule)
-  },
-
+  }
 ];
 
 @NgModule({

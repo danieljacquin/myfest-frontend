@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import { ConfigService} from '../../service/config.service';
+import {  Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
   usuario = "vhsalazar";
   contrasena = "Victor12345";
 
-  constructor(public auth:AuthService,public config:ConfigService) { }
+  constructor(public auth:AuthService,public config:ConfigService,  private router: Router,) { }
   
   ngOnInit() {}
   login(){
@@ -22,6 +23,10 @@ export class LoginComponent implements OnInit {
         this.config.set('token',data.token.token);
         this.config.get('token').then((val)=>{
           console.log(val);
+          if(val){
+            localStorage.setItem('user-token-myfest', JSON.stringify(val));
+            this.router.navigate(['/establishments']);
+          }
         }); 
       },
       (error)=>{

@@ -7,6 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+
 // storage
 import { Drivers } from '@ionic/storage';
 import { IonicStorageModule } from '@ionic/storage-angular';
@@ -14,8 +15,8 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, 
-          IonicModule.forRoot(), 
+  imports: [BrowserModule,
+          IonicModule.forRoot(),
           AppRoutingModule,
           HttpClientModule,
           IonicStorageModule.forRoot()],
