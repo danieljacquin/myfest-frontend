@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Productos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let product of products">
+      <!--<ion-avatar>
+        <img src="assets/licores.jpg" alt="Hello">
+      </ion-avatar>-->
+      <ion-label>
+        <p>{{product.descripcion}}</p>
+        <p>$ {{product.costoUnidad}}</p>
+      </ion-label>
+      <ion-checkbox color="dark" slot="start" [(ngModel)]="product.isChecked"></ion-checkbox>
+      <ion-item class="input-product">
+        <ion-input  type="number" value="1" [(ngModel)]="product.prodCompra"></ion-input>
+      </ion-item>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="block" (click)="showDetails()">Ver detalle</ion-button>
+</ion-content>
