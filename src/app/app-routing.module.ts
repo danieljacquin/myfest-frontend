@@ -8,8 +8,20 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'establishments',
+    redirectTo: 'home',
     pathMatch: 'full'
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
+  },
+  {
+    path: 'orders',
+    loadChildren: () => import('./pedidos/orders/orders.module').then( m => m.OrdersPageModule)
+  },
+  {
+    path: 'order-detail',
+    loadChildren: () => import('./pedidos/order-detail/order-detail.module').then( m => m.OrderDetailPageModule)
   },
   {
     path: 'establishments',
@@ -23,6 +35,10 @@ const routes: Routes = [
     path: 'show-details',
     loadChildren: () => import('./show-details/show-details.module').then( m => m.ShowDetailsPageModule)
   },
+  {
+    path: 'order-send',
+    loadChildren: () => import('./pedidos/order-send/order-send.module').then( m => m.OrderSendPageModule)
+  }
 ];
 
 @NgModule({

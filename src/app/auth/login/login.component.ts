@@ -1,0 +1,37 @@
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../service/auth.service';
+import { ConfigService} from '../../service/config.service';
+import {  Router } from '@angular/router';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+})
+export class LoginComponent implements OnInit {
+  usuario = "vhsalazar";
+  contrasena = "Victor12345";
+
+  constructor(public auth:AuthService,public config:ConfigService,  private router: Router,) { }
+  
+  ngOnInit() {}
+  login(){
+    const contrasenaEncode = btoa(this.contrasena);
+    console.log(contrasenaEncode);
+    this.auth.getLogin(this.usuario,contrasenaEncode).subscribe(
+      (data:any)=>{ 
+        this.config.set('token',data.token.token);
+        this.config.get('token').then((val)=>{
+          console.log(val);
+          if(val){
+            localStorage.setItem('user-token-myfest', JSON.stringify(val));
+            this.router.navigate(['/establishments']);
+          }
+        }); 
+      },
+      (error)=>{
+        console.log(error);
+      });
+  }
+
+}
