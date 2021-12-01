@@ -26,8 +26,9 @@ interface ProductDetails {
 export class ShowDetailsPage implements OnInit {
 
   data: any;
-  totalPrice: any = 0;
-  totalunits: any = 0;
+  totalPrice: number = 0;
+  totalunits: number = 0;
+  purchaseDetails: ProductDetails;
   constructor(
     private route: ActivatedRoute
   ) {
@@ -48,6 +49,13 @@ export class ShowDetailsPage implements OnInit {
 
     console.log(this.totalPrice);
     console.log(this.totalunits);
+    this.purchaseDetails = {
+      totalPrice: this.totalPrice,
+      totalQuantity: this.totalunits,
+      products: this.data
+    };
+
+    console.log(this.purchaseDetails);
   }
 
 }
