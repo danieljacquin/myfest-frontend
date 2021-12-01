@@ -21,11 +21,14 @@ export class LoginComponent implements OnInit {
     this.auth.getLogin(this.usuario,contrasenaEncode).subscribe(
       (data:any)=>{ 
         this.config.set('token',data.token.token);
-        this.config.get('token').then((val)=>{
-          console.log(val);
-          if(val){
+        this.config.set('idUser',data.obj.idPersona);
+
+        if(data.obj.descripcion === 'Natural'){
             this.router.navigate(['/establishments']);
           }
+        this.config.get('token').then((val)=>{
+          console.log(val);
+          
         }); 
       },
       (error)=>{
