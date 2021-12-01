@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { ConfigService }  from '../service/config.service';
 
+
 interface Products {
   idProducto: number;
   descripcion: string;

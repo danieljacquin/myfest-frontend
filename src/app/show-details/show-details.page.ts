@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
+import { ConfigService }  from '../service/config.service';
+import {AlertController, ToastController } from '@ionic/angular';
 
 
 interface Products {
@@ -29,8 +31,12 @@ export class ShowDetailsPage implements OnInit {
   totalPrice: number = 0;
   totalunits: number = 0;
   purchaseDetails: ProductDetails;
+  idUser: any;
+
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private config: ConfigService,
+    public toastController: ToastController
   ) {
     this.route.queryParams.subscribe(params => {
       if(params && params.data){
@@ -56,6 +62,24 @@ export class ShowDetailsPage implements OnInit {
     };
 
     console.log(this.purchaseDetails);
+    this.getToken();
+  }
+
+  async getToken(){
+    this.idUser = await this.config.get('idUser');
+    console.log(this.idUser);
+  }
+
+  async presentToast(){
+    const toast = await this.toastController.create({
+      message: "Compra realizada",
+      duration: 2000,
+    });
+    await toast.present();
+  }
+
+  comprar(){
+    this.presentToast();
   }
 
 }
